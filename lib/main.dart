@@ -39,7 +39,10 @@ class _NotepadScreenState extends State<NotepadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.white.withOpacity(0.7),
+        elevation: 0,
         title: const Text(
           '📝 Notepad',
           style: TextStyle(
@@ -47,7 +50,7 @@ class _NotepadScreenState extends State<NotepadScreen> {
             fontSize: 26,
             letterSpacing: 1.5,
             color: Colors.deepPurple,
-            fontFamily: 'Courier', // You can change to any available font
+            fontFamily: 'Courier',
           ),
         ),
         actions: [
@@ -58,18 +61,43 @@ class _NotepadScreenState extends State<NotepadScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TextField(
-          controller: _controller,
-          maxLines: null,
-          expands: true,
-          textAlignVertical:
-              TextAlignVertical.top, // Ensures input starts at the top
-          textAlign: TextAlign.start, // Ensures input starts at the left
-          decoration: const InputDecoration(
-            hintText: 'Start typing your notes...',
-            border: OutlineInputBorder(),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE0C3FC), Color(0xFF8EC5FC), Color(0xFFFAF0E6)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          // Add top padding equal to AppBar height + safe area + extra space
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + kToolbarHeight + 16.0, // Added 16.0 for extra space
+            left: 16.0,
+            right: 16.0,
+            bottom: 16.0,
+          ),
+          child: TextField(
+            controller: _controller,
+            maxLines: null,
+            expands: true,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.deepPurple,
+              fontFamily: 'Courier',
+            ),
+            textAlignVertical: TextAlignVertical.top,
+            textAlign: TextAlign.start,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white.withOpacity(0.7),
+              hintText: 'Start typing your notes...',
+              hintStyle: const TextStyle(color: Colors.deepPurpleAccent),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none,
+              ),
+            ),
           ),
         ),
       ),
